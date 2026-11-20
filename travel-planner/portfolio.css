@@ -133,3 +133,5 @@ body{background:radial-gradient(ellipse 100% 700px at 50% 0,#99def9 0,#d9f4ff 55
 @media(max-width:700px){.overview-editorial{grid-template-columns:1fr;gap:28px}.overview-context{padding:24px 0 0;border-left:0;border-top:1px solid var(--line)}.overview-lead h2,.editorial-intro h2{font-size:25px}.overview-question{font-size:18px}.pain-rows article{grid-template-columns:1fr;gap:12px;padding:24px 0}.goal-strategies{grid-template-columns:1fr;gap:28px}.goal-strategies small{margin-top:16px}}
 /* Wider page gutters for the portfolio composition. */ :root{--shell:1120px;--gutter:88px}@media(min-width:1400px){:root{--gutter:120px}}@media(max-width:1080px){:root{--gutter:56px}}@media(max-width:700px){:root{--gutter:28px}}
 :root{--shell:1040px;--gutter:112px}@media(min-width:1400px){:root{--gutter:160px}}@media(max-width:1080px){:root{--gutter:64px}}@media(max-width:700px){:root{--gutter:32px}}
+
+.flow-segments .flow-seg{white-space:nowrap;font-size:11px;padding:10px 6px}.flow-segments{margin-bottom:24px}

@@ -2133,3 +2133,7 @@ img{vertical-align:middle}
 .date-capsules{width:358px;height:36px;padding:2px 0 4px;box-sizing:border-box;touch-action:pan-x;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scroll-padding-inline:0;user-select:none;cursor:grab}.date-capsules:active{cursor:grabbing}.date-capsules button{flex:0 0 auto;min-width:77px;white-space:nowrap;scroll-snap-align:start;scroll-margin-inline:0}.date-capsules button:first-child{min-width:70px}.date-capsules button:last-child{scroll-snap-align:end}
 
 [data-node-id="358:1022"],[data-node-id="358:1037"],[data-node-id="358:1048"],[data-node-id="358:1058"]{visibility:hidden}.native-fields input,.native-fields input:hover,.native-fields input:focus,.native-fields input:focus-visible{outline:none!important;box-shadow:none!important;border:0!important;width:120px;left:207px;padding-right:0}
+
+/* Let the phone shell provide the only corner clipping, without a pale inner rim. */
+.fg-screen:has([data-node-id="358:547"]),.fg-screen:has([data-node-id="358:1158"]){background:#132630;overflow:hidden}
+[data-node-id="358:547"],[data-node-id="358:1158"]{border-radius:0!important;outline:none!important;border:0!important}

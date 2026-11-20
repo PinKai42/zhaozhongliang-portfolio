@@ -1,3 +1,4 @@
+import DateCapsules from '../DateCapsules';
 import React from 'react';
 const img160873Cf43C44E6DA780Af3284446Ae11 = "./figma-assets/c338691e-4b81-4175-b2ae-29c6b0e5ce36.png";
 const imgCodex2026942057121 = "./figma-assets/eeb8941f-326c-4991-a2a6-01fb9b051d6f.png";
@@ -44,47 +45,7 @@ export default function IPhone131449() {
       <div className="absolute h-[100.086px] left-0 top-[743.91px] w-[390px]" data-node-id="358:2522">
         <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgRectangle102} />
       </div>
-      <div className="-translate-x-1/2 absolute bg-gradient-to-r from-[86.538%] from-[rgba(255,255,255,0)] h-[34px] left-[calc(50%+8px)] overflow-clip to-white top-[782px] w-[374px]" data-node-id="358:2523">
-        <div className="absolute contents left-[350px] top-[347px]" data-node-id="358:2524">
-          <div className="absolute border border-[#bababa] border-solid h-[30px] left-[350px] rounded-[20px] top-[347px] w-[77px]" data-node-id="358:2525" />
-          <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['PingFang_SC:Bold'] justify-center leading-[0] left-[357px] not-italic text-[14px] text-black top-[362.01px] whitespace-nowrap" data-node-id="358:2526">
-            <p className="leading-[normal]">07月22日</p>
-          </div>
-        </div>
-        <div className="absolute contents left-px top-[2px]" data-node-id="358:2527">
-          <div className="absolute bg-black h-[30px] left-px rounded-[20px] top-[2px] w-[70px]" data-node-id="358:2528" />
-          <div className="absolute left-[12px] size-[12px] top-[11px]" data-node-id="358:2529" data-name="Frame">
-            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgFrame} />
-          </div>
-          <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['PingFang_SC:Bold'] justify-center leading-[0] left-[29px] not-italic text-[16px] text-white top-[17px] whitespace-nowrap" data-node-id="358:2531">
-            <p className="leading-[normal]">总揽</p>
-          </div>
-        </div>
-        <div className="absolute contents left-[79px] top-[2px]" data-node-id="358:2532">
-          <div className="absolute border border-[#bababa] border-solid h-[30px] left-[79px] rounded-[20px] top-[2px] w-[77px]" data-node-id="358:2533" />
-          <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['MiSans:Medium'] justify-center leading-[0] left-[calc(50%-100px)] not-italic text-[14px] text-black top-[calc(50%+0.01px)] whitespace-nowrap" data-node-id="358:2534">
-            <p className="leading-[normal]">04月12日</p>
-          </div>
-        </div>
-        <div className="absolute contents left-[164px] top-[2px]" data-node-id="358:2535">
-          <div className="absolute border border-[#bababa] border-solid h-[30px] left-[164px] rounded-[20px] top-[2px] w-[77px]" data-node-id="358:2536" />
-          <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['MiSans:Medium'] justify-center leading-[0] left-[calc(50%-15px)] not-italic text-[14px] text-black top-[calc(50%+0.01px)] whitespace-nowrap" data-node-id="358:2537">
-            <p className="leading-[normal]">04月13日</p>
-          </div>
-        </div>
-        <div className="absolute contents left-[249px] top-[2px]" data-node-id="358:2538">
-          <div className="absolute border border-[#bababa] border-solid h-[30px] left-[249px] rounded-[20px] top-[2px] w-[77px]" data-node-id="358:2539" />
-          <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['MiSans:Medium'] justify-center leading-[0] left-[calc(50%+70px)] not-italic text-[14px] text-black top-[calc(50%+0.01px)] whitespace-nowrap" data-node-id="358:2540">
-            <p className="leading-[normal]">04月14日</p>
-          </div>
-        </div>
-        <div className="absolute contents left-[334px] top-[2px]" data-node-id="358:2541">
-          <div className="absolute border border-[#bababa] border-solid h-[30px] left-[334px] rounded-[20px] top-[2px] w-[77px]" data-node-id="358:2542" />
-          <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['MiSans:Medium'] justify-center leading-[0] left-[calc(50%+154px)] not-italic text-[14px] text-black top-[calc(50%+0.01px)] whitespace-nowrap" data-node-id="358:2543">
-            <p className="leading-[normal]">04月22日</p>
-          </div>
-        </div>
-      </div>
+      <DateCapsules top={782}/>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute h-0 left-1/2 top-[calc(50%+330px)] w-[32px]" data-node-id="358:2544">
         <div className="absolute inset-[-2px_-6.25%]">
           <img alt="" className="block max-w-none size-full" src={imgVector17630} />

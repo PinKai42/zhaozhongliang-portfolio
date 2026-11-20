@@ -375,3 +375,10 @@ html.reduce-motion{scroll-behavior:auto}
 /* Keep demonstration hit areas invisible in every interaction state. */
 .phone .hotspot,.phone .hotspot:hover,.phone.show-guidance .hotspot,.phone .back-hotspot,.phone.show-guidance .back-hotspot,.phone .map-collapse{background:transparent!important;box-shadow:none!important;outline:none!important;animation:none!important}
 .phone .hs-label{display:none!important}
+
+#journey-screen.journey-live-screen{background:#132630;isolation:isolate;clip-path:inset(0 round 35px)}
+
+/* Cover fractional-pixel seams at the scaled iframe / rounded shell boundary. */
+
+
+.phone-inner-rim{position:absolute;inset:6px;border:2px solid #132630;border-radius:36px;pointer-events:none;z-index:110;box-sizing:border-box;background:transparent}

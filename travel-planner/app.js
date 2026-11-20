@@ -390,6 +390,9 @@
     journeySection.querySelectorAll('#flow-overviews [data-step]').forEach(function(b){b.setAttribute('aria-pressed',String(Number(b.dataset.chain)===chain&&Number(b.dataset.step)===step));});
   });
   function renderScreen() {
+    var shell=screenEl.closest('.phone');
+    if(!shell.querySelector('.phone-inner-rim')){var rim=document.createElement('div');rim.className='phone-inner-rim';rim.setAttribute('aria-hidden','true');shell.append(rim);}
+
     screenEl.closest('.phone').querySelector('.map-expanded-view')?.remove();
     screenEl.closest('.phone').querySelector('.map-demo-toast')?.remove();
     var c = CHAINS[chain], s = c.steps[step];
@@ -410,6 +413,8 @@
   }
   window.addEventListener('message',function(e){
     var frame=screenEl.querySelector('iframe[data-native]');
+    var mapFrame=screenEl.closest('.phone').querySelector('.map-expanded-view iframe');
+    if(e.origin===location.origin&&mapFrame&&e.source===mapFrame.contentWindow&&e.data?.type==='native-action'){screenEl.closest('.phone').querySelector('.map-expanded-view').remove();if(e.data.day)selectedDay=e.data.day;if(e.data.target==='main:3'){renderScreen();return;}if(e.data.target)gotoTarget(e.data.target);return;}
     if(e.origin!==location.origin||!frame||e.source!==frame.contentWindow||e.data?.type!=='native-action')return;
     if(e.data.fields){var f=e.data.fields;formPrompt='我想去'+f[1]+'旅行，从'+f[0]+'出发。'+f[3]+'，预计游玩'+f[2]+'。请帮我设计出行的详细行程。';}
     if(e.data.day)selectedDay=e.data.day;
@@ -440,19 +445,19 @@
     var c = CHAINS[chain];
     var segs = CHAINS.map(function (x, i) {
       return '<button class="flow-seg' + (i === chain ? ' is-on' : '') + '" data-chain="' + i + '" aria-pressed="' + (i === chain) + '">' +
-        x.shortName + '<span>' + x.total + '</span></button>';
+        x.name + '</button>';
     }).join('');
     var head = '<p class="flow-group-head"><span class="flow-group-tag ' + c.id + '">' + c.name + '</span></p>';
     var items = '';
     c.steps.forEach(function (s, i) {
       items += '<button class="flow-step' + (i === step ? ' is-active' : '') + '" data-step="' + i + '" aria-pressed="' + (i === step) + '">' +
         '<span class="step-index">' + num(i) + '</span>' +
-        '<span class="step-words"><strong>' + s.title + '</strong><small>' + s.short + '</small></span>' +
+        '<span class="step-words"><strong>' + s.title + '</strong></span>' +
         '<span class="step-mark" aria-hidden="true">↗</span></button>';
     });
     listEl.innerHTML =
       '<div class="flow-segments" role="group" aria-label="切换流程">' + segs + '</div>' +
-      head + items;
+      items;
   }
 
   function renderOverviews() {
