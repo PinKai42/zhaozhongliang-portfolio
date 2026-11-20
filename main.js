@@ -222,7 +222,7 @@ if (lanyardRoot && portraitStage && hero) {
   window.addEventListener("portfolio-lanyard:error", () => { lanyardRoot.dataset.lanyardState = "poster"; });
   if (!window.matchMedia("(max-width:1050px)").matches) {
     const bundle = document.createElement("script");
-    bundle.src = "assets/lanyard/lanyard-island.js?v=zhao-badge-design-13";
+    bundle.src = "assets/lanyard/lanyard-island.js?v=zhao-badge-surprise-2";
     bundle.async = true;
     bundle.addEventListener("error", () => { lanyardRoot.dataset.lanyardState = "poster"; }, { once: true });
     document.head.appendChild(bundle);
