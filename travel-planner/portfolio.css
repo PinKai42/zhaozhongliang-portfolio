@@ -135,3 +135,9 @@ body{background:radial-gradient(ellipse 100% 700px at 50% 0,#99def9 0,#d9f4ff 55
 :root{--shell:1040px;--gutter:112px}@media(min-width:1400px){:root{--gutter:160px}}@media(max-width:1080px){:root{--gutter:64px}}@media(max-width:700px){:root{--gutter:32px}}
 
 .flow-segments .flow-seg{white-space:nowrap;font-size:11px;padding:10px 6px}.flow-segments{margin-bottom:24px}
+
+/* Keep device geometry stable when switching workflows and steps. */
+.journey-phone-area .journey-phone,.journey-phone-area.switching .journey-phone,.journey-phone-area.switching-back .journey-phone{animation:none!important;transform:none!important;transition:none!important;opacity:1!important}
+@media(min-width:1081px){.journey-phone-area{display:grid;grid-template-columns:346px minmax(0,1fr);justify-content:start;align-items:start;gap:34px}.flow-phone-wrap{width:346px;min-width:346px}.flow-detail{width:100%;min-width:0;max-width:378px}}
+
+#journey-screen .jimg-in{animation:none!important}.flow-detail{animation:none!important}

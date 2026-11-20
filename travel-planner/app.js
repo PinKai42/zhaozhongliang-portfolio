@@ -52,6 +52,7 @@
     'day-list': {
       img: 'day-list.png', off: 0, back: BACK_ARROW,
       hs: [
+        { x:85.9, y:17.16, w:10.3, h:3.2, label:'放大地图', go:'map-expand' },
         { x: 4, y: 23.7, w: 17, h: 2.7, label: '总揽 · 返回四日行程', go: 'main:3' },
         { x: 70, y: 26.5, w: 23, h: 4, label: '优化路线', go: null },
         { x: 18, y: 40.5, w: 10, h: 1.8, label: '天安门广场至故宫 · 导航', go: 'main:5' },
@@ -369,14 +370,15 @@
       journeyLiveFrame.src='travel-flow/index.html?journey=1';
       journeyLiveFrame.addEventListener('load',function(){journeyLiveReady=true;journeyLiveFrame.contentWindow.postMessage({type:'journey-command',prompt:formPrompt,stage:liveStage(CHAINS[chain].steps[step].screen)},location.origin);});
     }
-    if(journeyLiveFrame.parentElement!==screenEl) screenEl.replaceChildren(journeyLiveFrame);
+    screenEl.querySelectorAll('iframe[data-native]').forEach(function(f){f.style.visibility='hidden';});
+    if(journeyLiveFrame.parentElement!==screenEl)screenEl.append(journeyLiveFrame);journeyLiveFrame.style.visibility='visible';
     updateLiveSize();
     if(journeyLiveReady) journeyLiveFrame.contentWindow.postMessage({type:'journey-command',prompt:formPrompt,stage:liveStage(screen)},location.origin);
     journeyLiveChain=chain;
   }
   window.addEventListener('message',function(e){
     if(e.origin!==location.origin||!journeyLiveFrame||e.source!==journeyLiveFrame.contentWindow||e.data?.type!=='journey-state')return;
-    if(!screenEl.contains(journeyLiveFrame)||journeyLiveChain!==chain)return;
+    if(!screenEl.contains(journeyLiveFrame)||journeyLiveFrame.style.visibility==='hidden'||journeyLiveChain!==chain)return;
     var stage=e.data.stage,c=CHAINS[chain],index;
     if(stage==='back'){goToIndex(chain===0?0:2,chain);return;}
     if(stage==='overview'){goToIndex(c.entryCount+3,chain);return;}
@@ -399,17 +401,18 @@
     if(liveScreens.indexOf(s.screen)!==-1){setJourneyLive(s.screen);return;}
     screenEl.classList.remove('journey-live-screen');
     screenEl.closest('.phone').classList.remove('has-live-journey');
-    if(journeyLiveFrame){journeyLiveFrame.remove();journeyLiveFrame=null;journeyLiveReady=false;}
+    if(journeyLiveFrame)journeyLiveFrame.style.visibility='hidden';
     var def = SCREENS[s.screen];
     if (!def) { screenEl.innerHTML = ''; return; }
     screenEl.dataset.off=0;
     screenEl.classList.add('journey-live-screen');
     screenEl.closest('.phone').classList.add('has-live-journey');
-    var frame=document.createElement('iframe');
-    frame.className='journey-live-frame';frame.title=s.title+' · Figma图层重绘';frame.src='native/index.html';
-    frame.style.transform='scale('+(screenEl.clientWidth/390)+')';
-    frame.dataset.native='1';screenEl.replaceChildren(frame);
-    frame.addEventListener('load',function(){frame.contentWindow.postMessage({type:'native-screen',screen:s.screen,day:selectedDay,hotspots:def.hs,back:def.back},location.origin);});
+    var frame=screenEl.querySelector('iframe[data-native]');
+    var payload={type:'native-screen',screen:s.screen,day:selectedDay,hotspots:def.hs,back:def.back};
+    if(!frame){frame=document.createElement('iframe');frame.className='journey-live-frame';frame.src='native/index.html';frame.dataset.native='1';frame.addEventListener('load',function(){frame.dataset.ready='1';frame.contentWindow.postMessage(frame.__payload,location.origin);});screenEl.append(frame);}
+    frame.__payload=payload;frame.title=s.title+' · Figma图层重绘';frame.style.visibility='visible';frame.style.transform='scale('+(screenEl.clientWidth/390)+')';
+    if(frame.dataset.ready)frame.contentWindow.postMessage(payload,location.origin);
+
   }
   window.addEventListener('message',function(e){
     var frame=screenEl.querySelector('iframe[data-native]');
