@@ -17,8 +17,9 @@ function cardTree(n,item,index){if(!React.isValidElement(n))return n;const id=n.
 const oldNames=['天安门广场','故宫博物馆','景山公园','南锣鼓巷','什刹海风景区'];
 function transform(n){if(typeof n==='string'){let t=n.replace('4月12日  周日','4月'+day+'日  周'+({13:'一',14:'二',15:'三'})[day]);oldNames.forEach((name,i)=>{if(t.includes(name))t=items[i]?t.replace(name,items[i][0]):'';});return t;}
 if(!React.isValidElement(n))return n;const id=n.props['data-node-id'];const markerIndex={'358:2219':0,'358:2226':1,'358:2212':2,'358:2233':3,'358:2240':4}[id];
-if(markerIndex!==undefined){const item=items[markerIndex];if(!item)return null;return <div key={id} className="day-map-label" data-route-name={item[0]} style={{position:'absolute',left:Math.max(8,190-markerIndex*7),top:177-markerIndex*24,display:'flex',gap:4,alignItems:'center',whiteSpace:'nowrap',fontSize:12,color:'white'}}><b style={{borderRadius:'50%',background:'#1fa9ff',border:'1px solid white',width:18,height:18,textAlign:'center',lineHeight:'18px'}}>{markerIndex+1}</b><span style={{background:'#6bc6ff',border:'1px solid white',borderRadius:5,padding:'3px 6px',lineHeight:'16px'}}>{item[0]}</span></div>;}
+if(markerIndex!==undefined){const item=items[markerIndex];if(!item)return null;return <div key={id} className="day-map-label" data-node-id={id} data-route-name={item[0]} style={{position:'absolute',left:Math.max(8,190-markerIndex*7),top:177-markerIndex*24,display:'flex',gap:4,alignItems:'center',whiteSpace:'nowrap',fontSize:12,color:'white'}}><b style={{borderRadius:'50%',background:'#1fa9ff',border:'1px solid white',width:18,height:18,textAlign:'center',lineHeight:'18px'}}>{markerIndex+1}</b><span style={{background:'#6bc6ff',border:'1px solid white',borderRadius:5,padding:'3px 6px',lineHeight:'16px'}}>{item[0]}</span></div>;}
 if(id==='358:2253')return React.cloneElement(n,{},items[items.length-1][0]);
 if(id==='358:2073')return React.cloneElement(n,{},items.map((item,i)=>React.cloneElement(cardTree(template,item,i),{key:i})));return React.cloneElement(n,{},React.Children.map(n.props.children,transform));}
 return transform(original);
 }
+

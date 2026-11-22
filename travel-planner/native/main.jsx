@@ -2,6 +2,7 @@ import DayItinerary from './DayItinerary';
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import './figma.css';
+import './fidelity.css';
 const screens=import.meta.glob('./screens/*.jsx');
 const map={home:'358-547',trips:'358-1158','trips-plus':'358-1668',form:'358-1008',map:'358-2518',overview:'358-2657','day-list':'358-2002',export:'358-2254'};
 const heights={map:844,home:844,trips:844,'trips-plus':844,form:844,overview:1101,'day-list':1253,export:844};

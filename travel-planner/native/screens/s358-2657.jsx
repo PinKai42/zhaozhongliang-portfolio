@@ -1,3 +1,5 @@
+import TripDate, {tripDate} from '../TripDate';
+import OverviewDayContent, {OverviewDayMap, OverviewMapToolbar} from '../OverviewDayContent';
 import DateCapsules from '../DateCapsules';
 import React from 'react';
 const img98507E981D04465A92Ca7Db815Ad6B211 = "./figma-assets/267c41c4-3946-4e37-8100-db14c5db089a.png";
@@ -34,14 +36,20 @@ const imgRectangle346247228 = "./figma-assets/a985f1e4-c2c3-489e-9845-e70fda928a
 
 export default function IPhone13144() {
   const [days,setDays]=React.useState([{"id":0,"date":"4.12 周日","weather":"⛅24°C~32°C","route":"天安门广场 → 故宫博物院 → 景山公园 → 南锣鼓巷 → 什刹海风景区"},{"id":1,"date":"4.13 周一","weather":"⛅25°C~33°C","route":"八达岭长城 → 鸟巢（国家体育场） → 水立方（国家游泳中心）→ 景山公园"},{"id":2,"date":"4.14 周二","weather":"⛅22°C~31°C","route":"颐和园 → 圆明园 → 前门大街 → 景山公园"},{"id":3,"date":"4.15 周三","weather":"⛅25°C~32°C","route":"天坛公园 → 雍和宫 → 孔庙和国子监博物馆"}]);
+  const [departure,setDeparture]=React.useState(()=>localStorage.getItem('trip-departure')||'2026-04-12');
+  function changeDeparture(value){setDeparture(value);localStorage.setItem('trip-departure',value);}
+  function dayLabel(id){const d=tripDate(departure,id);return d.month+'.'+d.day+' 周'+d.week;}
+  const [selectedDay,setSelectedDay]=React.useState(null);
   const screenRef=React.useRef(null);
   React.useLayoutEffect(()=>{
     const host=screenRef.current;
     const panel=document.createElement('div');panel.className='overview-scroll-panel';panel.setAttribute('aria-label','行程内容，可上下滚动');
     const content=document.createElement('div');content.className='overview-scroll-content';panel.append(content);
     [...host.children].forEach(node=>{const id=Number((node.dataset.nodeId||'').split(':')[1]);if([2830,2831].includes(id)||(id>=2709&&id<=2757)||node.classList.contains('itinerary-cards'))content.append(node);});
+    panel.append(host.querySelector('.overview-day-host'));
     host.append(panel);
   },[]);
+  React.useLayoutEffect(()=>{const host=screenRef.current;host.querySelector('.overview-scroll-content').style.display=selectedDay?'none':'';host.querySelector('.overview-day-host').style.display=selectedDay?'block':'none';host.querySelector('.overview-scroll-panel').scrollTop=0;[...host.children].forEach(node=>{const id=Number((node.dataset.nodeId||'').split(':')[1]);if(id===2658||(id>=2794&&id<=2829))node.style.display=selectedDay?'none':'';});},[selectedDay]);
   return (
     <div ref={screenRef} className="bg-white relative size-full overview-fixed-screen" data-node-id="358:2657" data-name="iPhone 13 & 14 - 4">
       <div className="absolute h-[370.894px] left-0 top-[-78.67px] w-[390px]" data-node-id="358:2658" data-name="98507e98-1d04-465a-92ca-7db815ad6b21 1">
@@ -69,7 +77,7 @@ export default function IPhone13144() {
       </div>
       <div className="absolute contents left-[17px] top-[305px]" data-node-id="358:2673">
         <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['PingFang_SC:Bold'] justify-center leading-[0] left-[17px] not-italic text-[#62686e] text-[14px] top-[321px] whitespace-nowrap" data-node-id="358:2674">
-          <p className="leading-[normal]">出发日期：2026年4月12日出发</p>
+          <TripDate value={departure} onChange={changeDeparture}/>
         </div>
         <div className="absolute h-[31px] left-[211px] top-[305px] w-[27px]" data-node-id="358:2675">
           <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgFrame346} />
@@ -96,7 +104,7 @@ export default function IPhone13144() {
       <div className="absolute left-[278px] size-[40px] top-[44px]" data-node-id="358:2684">
         <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgGroup467} />
       </div>
-      <DateCapsules overview/>
+      <DateCapsules startDate={departure} overview day={selectedDay} onChange={setSelectedDay}/>
       <div className="absolute bg-[#e2f3ff] h-[147px] left-[29px] rounded-[20px] top-[390px] w-[329px]" data-node-id="358:2709" />
       <div className="absolute bg-[#c2e6ff] h-[40px] left-[29px] rounded-tl-[20px] rounded-tr-[20px] top-[390px] w-[329px]" data-node-id="358:2710" />
       <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Figma_Hand:Regular'] font-normal justify-center leading-[0] left-[88px] text-[#366180] text-[16px] top-[410px] whitespace-nowrap" data-node-id="358:2711">
@@ -109,11 +117,11 @@ export default function IPhone13144() {
       </p>
       <div className="itinerary-cards">
         {days.map(day=><article className="itinerary-day" key={day.id}>
-          <button className="itinerary-open" aria-label={'查看'+day.date+'行程'} onClick={()=>parent.postMessage({type:'native-action',target:'main:4',day:12+day.id},location.origin)}>
-            <div className="itinerary-meta"><span>{day.date}</span><span>{day.weather}</span></div>
+          <button className="itinerary-open" aria-label={'查看'+dayLabel(day.id)+'行程'} onClick={()=>setSelectedDay(12+day.id)}>
+            <div className="itinerary-meta"><span>{dayLabel(day.id)}</span><span>{day.weather}</span></div>
             <p>{day.route}</p><span className="itinerary-chevron" aria-hidden="true">›</span>
           </button>
-          <button className="itinerary-delete" aria-label={'删除'+day.date+'行程'} onClick={()=>setDays(current=>current.filter(item=>item.id!==day.id))}><img src={imgFrame1} alt=""/></button>
+          <button className="itinerary-delete" aria-label={'删除'+dayLabel(day.id)+'行程'} onClick={()=>setDays(current=>current.filter(item=>item.id!==day.id))}><img src={imgFrame1} alt=""/></button>
         </article>)}
         <div className="itinerary-pending">待规划<span aria-hidden="true">＋</span></div>
       </div>
@@ -254,6 +262,11 @@ export default function IPhone13144() {
           <p className="leading-[normal]">AI</p>
         </div>
       </div>
+      <OverviewMapToolbar day={selectedDay} onBack={()=>selectedDay?setSelectedDay(null):parent.postMessage({type:"native-action",target:"back"},location.origin)}/>
+      <div className="overview-map-host">{selectedDay&&<OverviewDayMap day={selectedDay}/>}</div>
+      <div className="overview-day-host">{selectedDay&&<OverviewDayContent day={selectedDay} startDate={departure}/>}</div>
     </div>
   );
 }
+
+

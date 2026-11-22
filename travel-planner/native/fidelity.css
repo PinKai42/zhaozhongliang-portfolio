@@ -1,0 +1,43 @@
+@import url("../fonts/fonts.css");
+html,body,#root{font-family:"Figma PingFang",sans-serif;font-weight:400;font-synthesis:none}
+.font-\[\'PingFang_SC\:Bold\'\]{font-family:"Figma PingFang",sans-serif;font-weight:700}
+.font-\[\'Alibaba_PuHuiTi\:Heavy\'\]{font-family:"Figma Alibaba",sans-serif;font-weight:900}
+.font-\[\'PingFang_SC\:Regular\'\]{font-family:"Figma PingFang",sans-serif;font-weight:400}
+.font-\[\'PingFang_SC\:Medium\'\]{font-family:"Figma PingFang",sans-serif;font-weight:500}
+.font-\[\'MiSans\:Heavy\'\]{font-family:"Figma MiSans",sans-serif;font-weight:900}
+.font-\[\'MiSans\:Normal\'\]{font-family:"Figma MiSans",sans-serif;font-weight:400}
+.font-\[\'MiSans\:Bold\'\]{font-family:"Figma MiSans",sans-serif;font-weight:700}
+.font-\[\'MiSans\:Medium\'\]{font-family:"Figma MiSans",sans-serif;font-weight:500}
+.font-\[\'MiSans\:Demibold\'\]{font-family:"Figma MiSans",sans-serif;font-weight:600}
+.date-capsules{gap:8px;align-items:flex-start}.date-capsules button{height:30px;font-family:"Figma PingFang",sans-serif;font-size:14px;font-weight:700;line-height:20px;display:flex;gap:5px;align-items:center;justify-content:center;padding:0 8px;background:transparent;border-color:#bababa}.date-capsules button:first-child{font-size:16px;width:70px;min-width:70px}.date-capsules button:first-child img{width:12px;height:12px;flex:none}.date-capsules button.active{background:#000;color:#fff}.date-capsules button.active img{filter:brightness(0) invert(1)}.date-capsules button:not(.active) img{filter:brightness(0)}.date-capsules[data-node-id="358:2688"] button:not(:first-child){font-family:"Figma MiSans";font-weight:500}.native-fields input{font-family:"Figma PingFang";font-weight:700;font-size:18px;color:#3b4048}.itinerary-meta{font-family:"Figma MiSans";font-weight:600;line-height:19px}.itinerary-meta span+span{font-family:"Figma PingFang";font-weight:700;color:#656d72;line-height:20px}.itinerary-open p{font-family:"Figma PingFang";font-weight:400;line-height:20px;color:#3b3f41}.itinerary-pending{font-family:"Figma MiSans";font-weight:600}.day-scroll-content [data-node-id="358:2252"]{font-family:"Figma PingFang";font-weight:700;font-size:16px;color:#0d0c13}.day-map-label{font-family:"Figma MiSans";font-weight:500}.day-map-label b{font-weight:900}
+/* User-approved substitutions for the unavailable decorative fonts. */
+.font-\[\'Figma_Hand\:Regular\'\]{font-family:"Figma Alibaba",sans-serif;font-weight:400}
+.font-\[\'Fusion_Pixel\:Regular\'\]{font-family:"Figma Alibaba",sans-serif;font-weight:400}
+.font-\[\'DingTalk_JinBuTi\:Regular\'\]{font-family:"Figma Alibaba",sans-serif;font-weight:700}
+
+.overview-day-host{position:relative;width:390px;display:none}.overview-day-detail{position:relative;width:390px;min-height:920px}.overview-day-detail>[data-node-id="358:2071"]{top:8px;translate:0 0}.overview-day-detail>[data-node-id="358:2073"]{top:53px}.overview-day-detail>[data-node-id="358:2248"]{top:4px;cursor:pointer;z-index:95}.overview-day-detail [data-node-id="358:2098"],.overview-day-detail [data-node-id="358:2099"]{cursor:pointer}
+
+.overview-selected-map{position:absolute;inset:0 0 auto;height:254px;overflow:hidden;pointer-events:none;z-index:1}.overview-selected-map [data-node-id="358:2003"]{left:0}
+
+.overview-fixed-screen>[data-node-id="358:2758"],.overview-fixed-screen>[data-node-id="358:2659"]{z-index:3}.overview-selected-map{z-index:0}
+
+.overview-fixed-screen [data-node-id='358:2762']{z-index:3}
+
+
+.overview-map-toolbar{position:absolute;inset:44px 0 auto;height:40px;z-index:100;pointer-events:none}.overview-map-toolbar>button{position:absolute;top:0;width:40px;height:40px;background:none;border:0;padding:0;cursor:pointer;pointer-events:auto}.overview-map-toolbar>button:nth-child(1){left:16px}.overview-map-toolbar>button:nth-child(2){left:278px}.overview-map-toolbar>button:nth-child(3){left:334px}.overview-map-toolbar img{width:100%;height:100%}.overview-map-menu{position:absolute;right:16px;top:48px;padding:6px;background:white;border-radius:10px;box-shadow:0 4px 16px #0002;pointer-events:auto}.overview-map-menu button{display:block;border:0;background:none;padding:10px 16px;font:14px FigmaPingFang;color:#2b3940;cursor:pointer}
+
+.trip-date-trigger{border:0;background:transparent;padding:0;color:inherit;font:inherit;white-space:nowrap;cursor:pointer}.trip-date-trigger span{margin-left:5px;font-size:22px;vertical-align:-1px}.overview-fixed-screen [data-node-id="358:2675"]{display:none}.trip-date-shade{position:fixed;inset:0;width:390px;height:844px;background:#0005;z-index:500;display:flex;align-items:center;justify-content:center}.trip-date-dialog{width:310px;box-sizing:border-box;background:white;border-radius:18px;padding:22px;color:#2b3940;font:16px FigmaPingFang}.trip-date-dialog h3{font-size:18px;margin:0 0 20px}.trip-date-dialog input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #d9e3e8;border-radius:8px;font:16px FigmaPingFang;color:#2b3940}.trip-date-dialog>div{display:flex;gap:12px;margin-top:20px}.trip-date-dialog button{flex:1;padding:10px;border:0;border-radius:8px;background:#edf4f7;font:16px FigmaPingFang;cursor:pointer}.trip-date-dialog button[type=submit]{background:#1ab5da;color:white}
+
+/* Keep itinerary entry title and subtitle on one line without moving the icon. */
+[data-node-id="358:1941"]{left:111px;width:190px;translate:0 0;white-space:nowrap;word-break:normal}
+[data-node-id="358:1941"] p,[data-node-id="358:1941"] span{white-space:nowrap;word-break:normal}
+
+/* The itinerary form is a fixed screen; only text fields may scroll internally. */
+html:has([data-node-id="358:1008"]),body:has([data-node-id="358:1008"]),#root:has([data-node-id="358:1008"]){height:844px;min-height:844px;max-height:844px;overflow:hidden;overscroll-behavior:none}
+.fg-screen:has([data-node-id="358:1008"]){height:844px!important;overflow:hidden}
+
+/* Scale the route wand to 75% while preserving its SVG proportions. */
+[data-node-id="358:2249"]{align-items:center}
+[data-node-id="358:2250"]{width:15px;height:15px;display:flex;align-items:center;justify-content:center;align-self:center}
+[data-node-id="358:2250"] img{position:static;width:20px;height:20px;max-width:none;flex:none;transform:scale(.75);transform-origin:center}
+[data-node-id="358:2252"]{line-height:20px}

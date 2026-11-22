@@ -1,0 +1,28 @@
+@import url('../fonts/fonts.css');
+body,button,textarea{font-family:"Figma PingFang",sans-serif;font-synthesis:none}body{color:#233848}
+.chips{gap:14px;justify-content:initial;margin-left:-2px;margin-right:-2px;width:374px}
+.chips button{width:83px;flex:0 0 83px;height:30px;display:flex;align-items:center;justify-content:center;gap:2px;border:1px solid white;border-radius:16px;background:radial-gradient(ellipse at center,#fff,#ffffff99);box-shadow:inset 2px 2px 4px white;padding:0;font-family:"Figma PingFang";font-size:12px;font-weight:500;color:#3b4048;line-height:17px}
+.chips button img{display:block;width:auto;height:auto;flex:none}.chips button:nth-child(1) img{width:15px;height:15px}.chips button:nth-child(2) img{width:12px;height:12px}.chips button:nth-child(n+3) img{width:14px;height:14px}
+.pickhead b{font-family:"Figma PingFang";font-weight:700;font-size:16px;color:#233848}.question{font-family:"Figma PingFang";font-weight:700;font-size:14px;line-height:20px;color:#233848}.question>span{line-height:20px}.hero small{font-family:"Figma PingFang";font-size:14px;font-weight:700;color:#8a9abd}.bubble{font-family:"Figma PingFang";font-size:14px;line-height:20px;font-weight:700;color:#525963}#input,.compact #input{font-family:"Figma PingFang";font-size:16px;font-weight:700;line-height:22px;color:#525963}.steptitle{font-family:"Figma PingFang";font-weight:700;font-size:14px;color:#525963}.progress{font-family:"Figma PingFang";font-weight:700;font-size:18px}.trip h2{font-family:"Figma Alibaba";font-weight:900;font-size:24px;line-height:1.4}.tripinfo b{font-family:"Figma MiSans";font-weight:600;font-size:20px}
+
+.hero h1{font-family:"Figma Alibaba";font-size:20px;line-height:28px;font-weight:700;margin:0 0 10px}.hero p{font-family:"Figma Alibaba";font-size:20px;line-height:20px;font-weight:400;margin:0 0 13px;color:#233848}.hero small{line-height:14px}
+
+.question>em{display:inline-flex;align-items:center;justify-content:center;align-self:center;width:14px;height:14px;flex:0 0 14px;margin:0;padding:0;line-height:14px;font-family:Arial,sans-serif;font-size:12px;font-weight:400;font-style:normal;vertical-align:middle}
+
+/* Original Figma background and five rotated ellipse layers (5:35434). */
+.phone{background:linear-gradient(180deg,#c5e4fb 0%,#f1f9ff 100%)}
+#scroll{position:relative;background:none;isolation:isolate}
+#scroll>header,#scroll>nav{background:transparent}
+.figma-bg-glows{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.glow-horizontal{position:absolute;left:-151.1px;top:100.9px}
+.glow-vertical{position:absolute;left:-43px;top:270px;width:130px;height:384px;display:flex;align-items:center;justify-content:center}
+.glow-vertical img{flex:none;transform:rotate(-90deg) scaleY(-1)}
+.hero{isolation:isolate}.figma-ip-decoration{position:absolute;inset:0;pointer-events:none;z-index:-1}
+.ellipse-slot{position:absolute;display:flex;align-items:center;justify-content:center}.ellipse-slot img{flex:none;transform:rotate(10.63deg)}
+.ellipse-149{left:212.64px;top:44.49px;width:140.72px;height:143.515px}
+.ellipse-153{left:226.01px;top:58.12px;width:113.983px;height:116.247px}
+.ellipse-150{left:201.73px;top:33.37px;width:162.532px;height:165.759px}
+.ellipse-151{left:189.08px;top:7.66px;width:190.197px;height:204.63px}
+.ellipse-152{left:180.2px;top:-12.94px;width:210.172px;height:234.035px}
+.picks{position:relative;background:linear-gradient(223.6019943391646deg,#eff9fe 9.6701%,#e9f2fe 98.176%)}
+footer{background:linear-gradient(transparent,#ecf6fe 30%)}
