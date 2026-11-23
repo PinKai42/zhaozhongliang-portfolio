@@ -204,10 +204,15 @@ if (lanyardRoot && portraitStage && hero) {
   const liveHint = document.getElementById("lanyard-live-hint");
   const mobileBadge = portraitStage.querySelector(".mobile-badge-action");
   const posterButton = lanyardRoot.querySelector(".lanyard-poster-action");
+  const poster = posterButton.parentElement;
+  const posterFaces = poster.querySelector(".lanyard-poster-faces");
   const desktopLanyard = window.matchMedia("(min-width:1051px)");
   let restTimer;
   let restPosition;
   let badgeHeld = false;
+  let posterFlipping = false;
+  let sceneReady = false;
+  let sceneSettled = false;
   let loadTimer;
 
   const clearRestTimer = () => {
@@ -215,7 +220,7 @@ if (lanyardRoot && portraitStage && hero) {
     restPosition = undefined;
   };
   const checkBadgeRest = () => {
-    if (badgeHeld || liveHint.hidden || liveHint.dataset.badgePoke ||
+    if (!sceneSettled || badgeHeld || liveHint.hidden || liveHint.dataset.badgePoke ||
         lanyardRoot.dataset.lanyardState !== "live") return;
 
     const x = parseFloat(liveHint.style.left);
@@ -257,14 +262,27 @@ if (lanyardRoot && portraitStage && hero) {
   posterButton.addEventListener("click", dismissBadgeHint, { once: true });
   posterButton.addEventListener("click", () => {
     const flipped = posterButton.getAttribute("aria-pressed") !== "true";
+    posterFlipping = true;
     posterButton.setAttribute("aria-pressed", String(flipped));
-    posterButton.parentElement.toggleAttribute("data-flipped", flipped);
+    posterButton.setAttribute("aria-label", flipped ? "显示工牌正面" : "显示工牌背面");
+    poster.querySelector(".lanyard-poster-front").setAttribute("aria-hidden", String(flipped));
+    poster.querySelector(".lanyard-poster-back").setAttribute("aria-hidden", String(!flipped));
+    poster.toggleAttribute("data-flipped", flipped);
+    if (!flipped) showLiveBadge();
   });
   mobileBadge.addEventListener("click", dismissBadgeHint, { once: true });
 
   const html = document.documentElement;
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let entryFinished = reduceMotion;
+  posterButton.disabled = !entryFinished;
+  if (!reduceMotion) {
+    for (const badge of [poster, mobileBadge]) {
+      const markReady = () => { badge.dataset.badgeImageReady = ""; };
+      Promise.all([...badge.querySelectorAll("img")].map(image => image.decode())).then(markReady, markReady);
+    }
+  }
   const constrainedHardware = (navigator.deviceMemory && navigator.deviceMemory <= 4)
     || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
   const mode = connection?.saveData || reduceMotion ? "lite" : constrainedHardware ? "balanced" : "full";
@@ -284,13 +302,36 @@ if (lanyardRoot && portraitStage && hero) {
     window.clearTimeout(loadTimer);
     clearRestTimer();
     lanyardRoot.dataset.lanyardState = "poster";
-    posterButton.disabled = false;
+    posterButton.disabled = !entryFinished;
   };
-  window.addEventListener("portfolio-lanyard:ready", () => {
-    if (lanyardRoot.dataset.lanyardState !== "loading") return;
+  const showLiveBadge = () => {
+    if (!entryFinished || !sceneReady || !sceneSettled || posterFlipping || poster.hasAttribute("data-flipped") ||
+        lanyardRoot.dataset.lanyardState !== "loading") return;
     window.clearTimeout(loadTimer);
+    posterButton.disabled = true;
     lanyardRoot.dataset.lanyardState = "live";
     checkBadgeRest();
+  };
+  posterFaces.addEventListener("transitionend", event => {
+    if (event.target !== posterFaces || event.propertyName !== "transform") return;
+    posterFlipping = false;
+    showLiveBadge();
+  });
+  poster.addEventListener("animationend", event => {
+    if (event.target !== poster || event.animationName !== "badge-drop") return;
+    entryFinished = true;
+    poster.dataset.badgeEntered = "";
+    posterButton.disabled = false;
+    showLiveBadge();
+  });
+  window.addEventListener("portfolio-lanyard:ready", () => {
+    sceneReady = true;
+    window.clearTimeout(loadTimer);
+    showLiveBadge();
+  });
+  window.addEventListener("portfolio-lanyard:settled", () => {
+    sceneSettled = true;
+    showLiveBadge();
   });
   window.addEventListener("portfolio-lanyard:error", showPoster);
   window.addEventListener("portfolio-lanyard:context-lost", showPoster);
@@ -306,7 +347,7 @@ if (lanyardRoot && portraitStage && hero) {
     webgl.getExtension("WEBGL_lose_context")?.loseContext();
     loadTimer = window.setTimeout(showPoster, 10000);
     const bundle = document.createElement("script");
-    bundle.src = "assets/lanyard/lanyard-island.js?v=badge-hand-poke-2";
+    bundle.src = "assets/lanyard/lanyard-island.js?v=badge-position";
     bundle.async = true;
     bundle.addEventListener("error", showPoster, { once: true });
     document.head.appendChild(bundle);
