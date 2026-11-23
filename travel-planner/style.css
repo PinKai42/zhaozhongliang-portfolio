@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("./scrollbars.css");
 :root{
   --blue:#1e9bff;--blue-deep:#0b6ec9;--bubble:#d9efff;--highlight:#bfe6ff;
   --mint:#bff0e0;--mint-deep:#57c9a2;--paper:#f2f7fb;--ink:#132630;--muted:#546970;

@@ -1,4 +1,5 @@
 @import url('../fonts/fonts.css');
+@import url('../scrollbars.css');
 body,button,textarea{font-family:"Figma PingFang",sans-serif;font-synthesis:none}body{color:#233848}
 .chips{gap:14px;justify-content:initial;margin-left:-2px;margin-right:-2px;width:374px}
 .chips button{width:83px;flex:0 0 83px;height:30px;display:flex;align-items:center;justify-content:center;gap:2px;border:1px solid white;border-radius:16px;background:radial-gradient(ellipse at center,#fff,#ffffff99);box-shadow:inset 2px 2px 4px white;padding:0;font-family:"Figma PingFang";font-size:12px;font-weight:500;color:#3b4048;line-height:17px}

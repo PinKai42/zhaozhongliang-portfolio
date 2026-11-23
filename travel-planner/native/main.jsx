@@ -19,7 +19,7 @@ React.useLayoutEffect(()=>{
 }
 function optimizeRoute(){
  const list=document.querySelector('[data-node-id="358:2073"]');if(!list)return;
- const cards=[...list.children].filter(n=>n.querySelector('p')&&n.getAttribute('data-node-id')!=='358:2191');
+ const cards=[...list.children].filter(n=>n.querySelector('p')&&!['358:2191','358:2203'].includes(n.dataset.nodeId));
  if(cards.length<2)return;
  const anchor=[...list.children].find(n=>!cards.includes(n))||null;
  const reordered=[cards[1],cards[0],...cards.slice(2)];

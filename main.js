@@ -203,9 +203,12 @@ const portraitStage = document.querySelector(".portrait-stage");
 if (lanyardRoot && portraitStage && hero) {
   const liveHint = document.getElementById("lanyard-live-hint");
   const mobileBadge = portraitStage.querySelector(".mobile-badge-action");
+  const posterButton = lanyardRoot.querySelector(".lanyard-poster-action");
+  const desktopLanyard = window.matchMedia("(min-width:1051px)");
   let restTimer;
   let restPosition;
   let badgeHeld = false;
+  let loadTimer;
 
   const clearRestTimer = () => {
     window.clearTimeout(restTimer);
@@ -251,7 +254,12 @@ if (lanyardRoot && portraitStage && hero) {
     mobileBadge.disabled = true;
   };
   window.addEventListener("portfolio-lanyard:badge-click", dismissBadgeHint, { once: true });
-  lanyardRoot.querySelector(".lanyard-poster-action").addEventListener("click", dismissBadgeHint, { once: true });
+  posterButton.addEventListener("click", dismissBadgeHint, { once: true });
+  posterButton.addEventListener("click", () => {
+    const flipped = posterButton.getAttribute("aria-pressed") !== "true";
+    posterButton.setAttribute("aria-pressed", String(flipped));
+    posterButton.parentElement.toggleAttribute("data-flipped", flipped);
+  });
   mobileBadge.addEventListener("click", dismissBadgeHint, { once: true });
 
   const html = document.documentElement;
@@ -263,7 +271,7 @@ if (lanyardRoot && portraitStage && hero) {
   html.dataset.lanyardMode = mode;
   lanyardRoot.dataset.lanyardMode = mode;
   const syncCanvasHeight = () => {
-    if (window.matchMedia("(max-width:1050px)").matches) return;
+    if (!desktopLanyard.matches) return;
     const heroRect = hero.getBoundingClientRect();
     const stageRect = portraitStage.getBoundingClientRect();
     lanyardRoot.style.top = "0px";
@@ -271,20 +279,39 @@ if (lanyardRoot && portraitStage && hero) {
   };
   new ResizeObserver(syncCanvasHeight).observe(portraitStage);
   syncCanvasHeight();
+
+  const showPoster = () => {
+    window.clearTimeout(loadTimer);
+    clearRestTimer();
+    lanyardRoot.dataset.lanyardState = "poster";
+    posterButton.disabled = false;
+  };
   window.addEventListener("portfolio-lanyard:ready", () => {
+    if (lanyardRoot.dataset.lanyardState !== "loading") return;
+    window.clearTimeout(loadTimer);
     lanyardRoot.dataset.lanyardState = "live";
     checkBadgeRest();
   });
-  window.addEventListener("portfolio-lanyard:error", () => {
-    clearRestTimer();
-    lanyardRoot.dataset.lanyardState = "poster";
-  });
-  if (!window.matchMedia("(max-width:1050px)").matches) {
+  window.addEventListener("portfolio-lanyard:error", showPoster);
+  window.addEventListener("portfolio-lanyard:context-lost", showPoster);
+
+  const startLanyard = () => {
+    if (!desktopLanyard.matches) return;
+    desktopLanyard.removeEventListener("change", startLanyard);
+    const webgl = document.createElement("canvas").getContext("webgl2");
+    if (!webgl) {
+      showPoster();
+      return;
+    }
+    webgl.getExtension("WEBGL_lose_context")?.loseContext();
+    loadTimer = window.setTimeout(showPoster, 10000);
     const bundle = document.createElement("script");
     bundle.src = "assets/lanyard/lanyard-island.js?v=badge-hand-poke-2";
     bundle.async = true;
-    bundle.addEventListener("error", () => { lanyardRoot.dataset.lanyardState = "poster"; }, { once: true });
+    bundle.addEventListener("error", showPoster, { once: true });
     document.head.appendChild(bundle);
-  }
+  };
+  desktopLanyard.addEventListener("change", startLanyard);
+  startLanyard();
 }
 

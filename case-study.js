@@ -4,6 +4,7 @@ const chapterNav = document.querySelector(".chapter-nav");
 const chapterLinks = [...(chapterNav?.querySelectorAll('a[href^="#"]') ?? [])];
 const chapters = [...document.querySelectorAll("[data-chapter]")];
 const rail = document.querySelector(".case-rail-list");
+const resumeOverview = document.querySelector(".resume-columns");
 
 const setActiveChapter = (current) => {
   chapterLinks.forEach((link) => {
@@ -44,12 +45,24 @@ const updateProgress = () => {
   const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
   progressBar?.style.setProperty("transform", `scaleX(${Math.min(1, Math.max(0, progress))})`);
   header?.classList.toggle("is-scrolled", window.scrollY > 20);
+
+  if (resumeOverview) {
+    const marker = Math.max(184, window.innerHeight / 4);
+    let current = resumeOverview;
+    if (progress >= .99) {
+      const linked = chapters.find((chapter) => `#${chapter.id}` === location.hash);
+      const linkedTop = linked?.getBoundingClientRect().top;
+      current = linkedTop >= 68 && linkedTop < window.innerHeight ? linked : chapters.at(-1);
+    } else if (window.scrollY > 1) {
+      current = chapters.findLast((chapter) => chapter.getBoundingClientRect().top <= marker) || current;
+    }
+    setActiveChapter(current);
+  }
 };
 window.addEventListener("scroll", updateProgress, { passive: true });
 window.addEventListener("resize", updateProgress);
+if (resumeOverview) window.addEventListener("hashchange", updateProgress);
 updateProgress();
-
-document.querySelector("[data-print-resume]")?.addEventListener("click", () => window.print());
 
 if ("IntersectionObserver" in window && chapters.length) {
   const activeObserver = new IntersectionObserver((entries) => {
@@ -58,7 +71,7 @@ if ("IntersectionObserver" in window && chapters.length) {
       .sort((a, b) => Math.abs(a.boundingClientRect.top - window.innerHeight * 0.38) - Math.abs(b.boundingClientRect.top - window.innerHeight * 0.38))[0];
     if (active) setActiveChapter(active.target);
   }, { rootMargin: "-22% 0px -62% 0px", threshold: 0 });
-  chapters.forEach((chapter) => activeObserver.observe(chapter));
+  if (!resumeOverview) chapters.forEach((chapter) => activeObserver.observe(chapter));
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -73,13 +86,13 @@ if ("IntersectionObserver" in window && chapters.length) {
     const rect = chapter.getBoundingClientRect();
     return rect.top < window.innerHeight * .62 && rect.bottom > window.innerHeight * .22;
   });
-  if (initiallyVisible) setActiveChapter(initiallyVisible);
+  if (initiallyVisible && !resumeOverview) setActiveChapter(initiallyVisible);
 } else {
   const initial = chapters.find((chapter) => {
     const rect = chapter.getBoundingClientRect();
     return rect.top < window.innerHeight * .62 && rect.bottom > window.innerHeight * .22;
   }) || chapters[0];
-  if (initial) setActiveChapter(initial);
+  if (initial && !resumeOverview) setActiveChapter(initial);
 }
 
 const lightbox = document.querySelector(".lightbox");

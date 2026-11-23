@@ -254,10 +254,10 @@ export default function IPhone13144() {
           </div>
         </div>
       </div>
-      <div className="absolute h-[32px] left-[37px] shadow-[0px_4px_4px_0px_rgba(38,143,214,0.25)] top-[395px] w-[45px]" data-node-id="358:2830" data-name="IP 头 1">
+      <div className="absolute h-[32px] left-[37px] top-[395px] w-[45px]" data-node-id="358:2830" data-name="IP 头 1">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgIp1} />
       </div>
-      <div className="absolute bg-gradient-to-b content-stretch drop-shadow-[0px_4px_2px_rgba(0,118,229,0.25)] flex from-[#63d3ff] from-[9.163%] h-[13px] items-center justify-center left-[66px] px-[4px] py-[2px] rounded-[15px] to-[#2683e9] top-[417px] w-[19px]" data-node-id="358:2831">
+      <div className="absolute bg-gradient-to-b content-stretch flex from-[#63d3ff] from-[9.163%] h-[13px] items-center justify-center left-[66px] px-[4px] py-[2px] rounded-[15px] to-[#2683e9] top-[417px] w-[19px]" data-node-id="358:2831">
         <div className="[word-break:break-word] flex flex-col font-['Alibaba_PuHuiTi:Heavy'] justify-center leading-[0] not-italic relative shrink-0 text-[8px] text-center text-white whitespace-nowrap" data-node-id="358:2832">
           <p className="leading-[normal]">AI</p>
         </div>
